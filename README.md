@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Watikah SKPM 2026</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Glacial Indifference';
+            src: url('https://fonts.cdnfonts.com/s/20871/GlacialIndifference-Regular.woff') format('woff');
+        }
+
+        :root {
+            --title-font: 'Anton', sans-serif;
+            --body-font: 'Glacial Indifference', sans-serif;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* UI PANEL (Hanya nampak di skrin) */
+        .no-print {
+            max-width: 900px;
+            margin: 0 auto 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: var(--title-font);
+            color: #2c3e50;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-family: var(--title-font);
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        .input-group { margin-bottom: 20px; }
+        label { font-weight: bold; display: block; margin-bottom: 10px; }
+
+        select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: var(--body-font);
+            font-size: 16px;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+            padding: 15px;
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .check-item input { margin-right: 10px; width: 18px; height: 18px; }
+
+        .btn-generate {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: var(--title-font);
+            font-size: 20px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+
+        .btn-generate:hover { background: #219150; }
+
+        /* FORMAT SURAT A4 (Hanya nampak bila print) */
+        #surat-a4 {
+            display: none;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm 20mm;
+            margin: auto;
+            background: white;
+            box-sizing: border-box;
+            color: black;
+        }
+
+        .header-sekolah {
+            text-align: center;
+            border-bottom: 3px solid black;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        .header-sekolah img {
+            width: 100px; /* Saiz lencana */
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .header-sekolah h2 {
+            font-family: var(--title-font);
+            font-size: 24pt;
+            margin: 0;
+        }
+
+        .header-sekolah p { font-size: 12pt; margin: 2px 0; }
+
+        .tajuk-surat {
+            font-family: var(--title-font);
+            text-align: center;
+            font-size: 18pt;
+            text-decoration: underline;
+            margin: 30px 0;
+        }
+
+        .isi-surat {
+            font-size: 12pt;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .isi-surat ul {
+            margin: 15px 0;
+            padding-left: 40px;
+        }
+
+        .isi-surat li {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .footer-surat {
+            margin-top: 50px;
+            font-size: 12pt;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .no-print { display: none; }
+            #surat-a4 { display: block !important; }
+            @page { size: A4; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="no-print">
+    <h1>Generator Watikah 2026</h1>
+
+    <div class="input-group">
+        <label>1. Pilih Nama Guru:</label>
+        <select id="namaGuru">
+            <option value="">-- Sila Pilih --</option>
+            <option>DORIS @ VICTORIA BT MICHAEL</option>
+            <option>HARYATI BINTI MATYAMAN</option>
+            <option>TAJUDDIN BIN ASIM @ AYIM</option>
+            <option>JAINAP BINTI HJ INGKAR</option>
+            <option>AMRAN BIN A.MORKEE</option>
+            <option>ANIM BINTI AWANG PIUT</option>
+            <option>MOHD AFFENDI BIN MUADI</option>
+            <option>ZAINON BINTI MOHD RIPIN</option>
+            <option>AIDAH BINTI AHMID</option>
+            <option>MUHAMMAD MUIZZ BIN ADANAN</option>
+            <option>DK NORLIHA BINTI AG MENGKU @ AK MINGGU</option>
+            <option>MOHD HAFIZ BATU BARA BIN MANSHURUDDIN</option>
+            <option>FATIN AMALINA BINTI AG HAMID</option>
+            <option>JUSTINA BINTI MOHAMMAD</option>
+            <option>ROHANA BINTI TARIP</option>
+            <option>LAJABIT BT. SALAG</option>
+            <option>LORETTA MICHAEL KUBOT</option>
+            <option>NADIRAH @ IRAHYANTI JASING SIMBARA</option>
+            <option>MOHD HASIRUL AQWAM BIN AHMAD</option>
+            <option>NURJULIANA BINTI ABDULLAH SANI</option>
+            <option>RAHNAWATI AG TANGAH</option>
+            <option>ROSLINDA DEWICIA YANTI BTE MOHD TAIB</option>
+            <option>ROSLIZAH BINTI SUHAILIN</option>
+            <option>ROZILAILY BINTI NORDIN</option>
+            <option>SARITA BT A. GOLBEN</option>
+            <option>PACIK BIN SARAH</option>
+        </select>
+    </div>
+
+    <label>2. Pilih Jawatan (Boleh pilih banyak):</label>
+    <div id="jobContainer"></div>
+
+    <div class="input-group" style="margin-top:20px;">
+        <label>3. Tugas-Tugas Lain (Setiap baris akan jadi satu bullet point):</label>
+        <textarea id="tugasLain" rows="4" placeholder="Contoh:&#10;Penyelaras Bilik Gerakan&#10;AJK PIBG"></textarea>
+    </div>
+
+    <button class="btn-generate" onclick="janaDanCetak()">JANA & CETAK WATIKAH</button>
+</div>
+
+<div id="surat-a4">
+    <div class="header-sekolah">
+        <img src="https://i.postimg.cc/jj3vNnQy/e-SKPM.png" alt="Lencana SKPM">
+        <h2>SEKOLAH KEBANGSAAN PEKAN MEMBAKUT</h2>
+        <p>Peti surat 03, 89727 Membakut, Sabah</p>
+    </div>
+
+    <div class="tajuk-surat">WATIKAH PELANTIKAN TUGAS 2026</div>
+
+    <div class="isi-surat">
+        <p>Sukacita dimaklumkan bahawa <strong><span id="p_nama1"></span></strong> telah dilantik untuk memegang jawatan berikut bagi tahun 2026.</p>
+        
+        <ul id="p_listTugas"></ul>
+
+        <p>Semoga <strong><span id="p_nama2"></span></strong> dapat menjalankan tanggungjawab yang diamanahkan ini dengan penuh komitmen, telus dan cemerlang.</p>
+    </div>
+
+    <div class="footer-surat">
+        <p><strong>"MALAYSIA MADANI"</strong></p>
+        <p><strong>"BERKHIDMAT UNTUK NEGARA"</strong></p>
+        <br>
+        <p>Saya yang menjalankan amanah,</p>
+        <br><br><br>
+        <p><strong>(DORIS @ VICTORIA BT MICHAEL JOANNES)</strong><br>
+        GURU BESAR<br>
+        SK PEKAN MEMBAKUT</p>
+    </div>
+</div>
+
+<script>
+    const dataJawatan = {
+        "PENTADBIRAN DAN PENGURUSAN": ["SU PENGURUSAN&PENTADBIRAN", "PENYELARAS JAWATANKUASA BENCANA", "SU JAWATANKUASA BENCANA", "SU PBS", "GURU BIMBINGAN&KAUNSELING", "GURU DATA & EMIS", "GURU ASET", "PENYELARAS SK@S", "GURU DATA SK@S", "GURU PEMBANGUNAN", "PENYELARAS KUARTERS GURU"],
+        "KURIKULUM": ["SU KURIKULUM", "PENYELARAS PKL", "SU PEPERIKSAAN / PBD", "PENYELARAS TRANSISI", "PENYELARAS STEM, KBAT&INOVASI", "SU STEM, KBAT & INOVASI", "GURU PEMULIHAN KHAS", "PENYELARAS JADUAL WAKTU", "PENYELARAS ICT", "GURU ICT", "GURU MEDIA", "PENYELARAS JQAF", "GURU KELAS 1 KREATIF", "GURU KELAS 1 INOVATIF", "GURU KELAS 2 KREATIF", "GURU KELAS 2 INOVATIF", "GURU KELAS 3 KREATIF", "GURU KELAS 3 INOVATIF", "GURU KELAS 4 KREATIF", "GURU KELAS 4 INOVATIF", "GURU KELAS 5 KREATIF", "GURU KELAS 5 INOVATIF", "GURU KELAS 6 KREATIF", "GURU KELAS 6 INOVATIF", "PEMBANTU GURU KELAS 1 KREATIF", "PEMBANTU GURU KELAS 1 INOVATIF", "PEMBANTU GURU KELAS 2 KREATIF", "PEMBANTU GURU KELAS 2 INOVATIF", "PEMBANTU GURU KELAS 3 KREATIF", "PEMBANTU GURU KELAS 3 INOVATIF", "PEMBANTU GURU KELAS 4 KREATIF", "PEMBANTU GURU KELAS 4 INOVATIF", "PEMBANTU GURU KELAS 5 KREATIF", "PEMBANTU GURU KELAS 5 INOVATIF", "PEMBANTU GURU KELAS 6 KREATIF", "PEMBANTU GURU KELAS 6 INOVATIF", "GURU PRASEKOLAH", "KETUA PANITIA", "PENYELARAS SEGAK&BMI", "SU SEGAK&BMI", "GURU SEGAK&BMI"],
+        "HAL EHWAL MURID": ["SETIAUSAHA HAL EHWAL MURID", "PEMBANTU GURU PENYELARAS BUKU TEKS", "GURU BIMBINGAN&KAUNSELING", "GURU PENYELARAS BUKU TEKS", "GURU DISIPLIN", "GURU PENYELARAS PENGAWAS SEKOLAH", "GURU PENYELARAS BANTUAN SUSU SEKOLAH", "PEMBANTU GURU PENYELARAS KESELAMATAN (3K)", "GURU PENYELARAS RMT", "PEMBANTU GURU PENYELARAS KANTIN", "GURU PENYELARAS BANTUAN KWAPM/ZAKAT", "GURU PENYELARAS BANTUAN SOSIAL", "GURU KESIHATAN (3K)", "GURU PENYELARAS BAP", "GURU PENYELARAS APDM", "GURU PENYELARAS KANTIN", "GURU PENYELARAS PENDAFTARAN MURID", "GURU PENYELARAS KESELAMATAN", "GURU PENYELARAS PPDA", "PEMBANTU GURU DISIPLIN"],
+        "KOKURIKULUM": ["Setiausaha kokurikulum", "Penolong Setiausaha Kokurikulum", "Bendahari Kokurikulum", "Setiausaha Sukan Sekolah", "Penolong Setiausaha Sukan Sekolah", "Guru Sukan Sekolah", "Penyelaras Unit Beruniform", "Penyelaras Kelab Persatuan", "Penyelaras Sukan Permainan/1M1S", "Guru Penasihat Pengakap", "Guru Penasihat Puteri Islam", "Guru Penasihat BSMM", "Guru Penasihat Tunas Puteri", "Guru Penasihat TKRS", "Guru Penasihat Kelab Bahasa Melayu", "Guru Penasihat Kelab Bahasa Inggeris", "Guru Penasihat Kelab STEM", "Guru Penasihat Kelab Komputer", "Guru Penasihat Bola Tampar", "Guru Penasihat Bola Jaring", "Guru Penasihat Bola Sepak", "Guru Penasihat Badminton", "Penyelaras PAJSK", "Penyelaras HIP", "Penyelaras Mantap", "AJK Kokurikutum"]
+    };
+
+    const container = document.getElementById('jobContainer');
+    for (const [cat, jobs] of Object.entries(dataJawatan)) {
+        const title = document.createElement('div');
+        title.className = 'section-title';
+        title.innerText = cat;
+        container.appendChild(title);
+
+        const grid = document.createElement('div');
+        grid.className = 'checkbox-grid';
+        jobs.forEach(j => {
+            const div = document.createElement('div');
+            div.className = 'check-item';
+            div.innerHTML = `<input type="checkbox" name="jobs" value="${j.toUpperCase()}"> <span>${j}</span>`;
+            grid.appendChild(div);
+        });
+        container.appendChild(grid);
+    }
+
+    function janaDanCetak() {
+        const nama = document.getElementById('namaGuru').value;
+        if (!nama) { alert("Sila pilih nama guru!"); return; }
+
+        document.getElementById('p_nama1').innerText = nama;
+        document.getElementById('p_nama2').innerText = nama;
+
+        const listUl = document.getElementById('p_listTugas');
+        listUl.innerHTML = "";
+
+        // Jawatan terpilih
+        document.querySelectorAll('input[name="jobs"]:checked').forEach(cb => {
+            const li = document.createElement('li');
+            li.innerText = cb.value;
+            listUl.appendChild(li);
+        });
+
+        // Tugas lain (Bullet Points)
+        const tugasLainRaw = document.getElementById('tugasLain').value;
+        if (tugasLainRaw.trim() !== "") {
+            const baris = tugasLainRaw.split('\n');
+            baris.forEach(teks => {
+                if (teks.trim() !== "") {
+                    const li = document.createElement('li');
+                    li.innerText = teks.trim().toUpperCase();
+                    listUl.appendChild(li);
+                }
+            });
+        }
+
+        window.print();
+    }
+</script>
+
+</body>
+</html>
